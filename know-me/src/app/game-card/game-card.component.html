@@ -1,0 +1,8 @@
+<div class="card" (click)="cardClicked.emit()" [@cardFlip]="data.state">
+    <div class="face back" style="background-image: url('/assets/images/card-background.png'); background-repeat: no-repeat; background-size: 300px 200px;">
+        <h1 class="text-shadow" [innerHTML]="data.name"></h1>
+    </div>
+    <div class="face front">
+        <h3 [innerHTML]="data.description" style="text-align: center; bottom: 50%; transform: translate(0%,50%); position: absolute;"></h3>
+    </div>
+</div>
