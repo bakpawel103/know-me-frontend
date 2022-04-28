@@ -142,6 +142,12 @@ export class AppComponent {
       name: "Question 22",
       description: "Who is more likely to survive the Hunger Games—me or you?",
       state: 'default'
+    },
+    {
+      id: 22,
+      name: "Question 23",
+      description: "What are your top 5 rules for life?",
+      state: 'default'
     }
   ]
 
