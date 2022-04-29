@@ -1,6 +1,7 @@
 export interface CardData {
     id: number;
-    name: string;
-    description: string;
-    state: 'default' | 'flipped' | 'matched';
+    name: String;
+    description: String;
+    answered: boolean;
 }
+//state: 'default' | 'flipped' | 'matched';

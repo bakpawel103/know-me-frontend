@@ -1,4 +1,4 @@
-<div class="card" (click)="cardClicked.emit()" [@cardFlip]="data.state">
+<div class="card" (click)="cardClicked.emit()" [@cardFlip]="data.answered">
     <div class="face back" style="background-image: url('/assets/images/card-background.png'); background-repeat: no-repeat; background-size: 300px 200px;">
         <h1 class="text-shadow" [innerHTML]="data.name"></h1>
     </div>

@@ -8,28 +8,19 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   animations: [
     trigger("cardFlip", [
       state(
-        "default",
+        "false",
         style({
           transform: "none"
         })
       ),
       state(
-        "flipped",
+        "true",
         style({
           transform: "rotateY(180deg)"
         })
       ),
-      state(
-        "matched",
-        style({
-          visibility: "false",
-          transform: "scale(0.05)",
-          opacity: 0
-        })
-      ),
-      transition("default => flipped", [animate("400ms")]),
-      transition("flipped => default", [animate("400ms")]),
-      transition("* => matched", [animate("400ms")])
+      transition("false => true", [animate("400ms")]),
+      transition("true => false", [animate("400ms")]),
     ])
   ]
 })
