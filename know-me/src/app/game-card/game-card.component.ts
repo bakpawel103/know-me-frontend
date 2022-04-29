@@ -6,6 +6,7 @@ export interface Question {
   name: String;
   description: String;
   answered: boolean;
+  isEdit: boolean;
 }
 
 @Component({

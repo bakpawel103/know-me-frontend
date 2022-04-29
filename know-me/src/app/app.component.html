@@ -1,11 +1,12 @@
 <mat-toolbar color="primary" class="text-center">
-  {{title}}
+  <mat-toolbar-row>
+    <h1>Know me The Game 😈</h1>
+    <span class="menu-spacer"></span>
+    <div>
+      <a mat-button [routerLink]="'/questions'">Questions</a>
+      <a mat-button [routerLink]="'/manager'">Questions Manage</a>
+    </div>
+  </mat-toolbar-row>
 </mat-toolbar>
-<div class="p-16">
-  <br>
-  <div class="grid p-16">
-    <app-game-card *ngFor="let item of questions; let idx=index" [data]="item" (cardClicked)="cardClicked(idx)"></app-game-card>
-  </div>
-</div>
 
 <router-outlet></router-outlet>
