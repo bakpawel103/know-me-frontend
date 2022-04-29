@@ -1,6 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { QuestionService } from '../question.service';
 
 export interface Question {
   id: number;

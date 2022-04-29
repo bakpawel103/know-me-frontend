@@ -23,7 +23,7 @@ export class QuestionService {
   }
   
   public updateQuestion(id: number, question: Question) {
-    return this.httpClient.put<Question>(`${this.BASE_SERVER}questions`, question);
+    return this.httpClient.put<Question>(`${this.BASE_SERVER}questions/${id}`, question);
   }
   
   public deleteQuestion(id: number) {

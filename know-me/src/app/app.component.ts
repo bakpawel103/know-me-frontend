@@ -16,21 +16,25 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.questionService.getQuestions().subscribe(response => {
-      console.log(response);
+      this.questions = response as Question[];
+      this.questions = this.questions.sort((a, b) => a.id - b.id);
     });
   }
 
   cardClicked(index: number): void {
-    const quersion = this.questions[index];
+    const question = this.questions[index];
 
-    if (quersion.answered === false)   {
-      quersion.answered = true;
-    } else if (quersion.answered === true) {
-      quersion.answered = false;
+    if (question.answered === false)   {
+      question.answered = true;
+    } else if (question.answered === true) {
+      question.answered = false;
     }
 
-    if(this.questions.filter(x => x.answered).length == this.questions.length) {
-      this.title = "💕 Kocham Cię! 💕";
-    }
+    this.questionService.updateQuestion(question.id, question).subscribe(response => {
+      setTimeout(() => {
+        this.questions[index] = response;
+        this.questions = this.questions.sort((a, b) => a.id - b.id);
+      }, 400);
+    })
   }
 }
