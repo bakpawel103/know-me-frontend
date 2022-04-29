@@ -2,7 +2,7 @@
     <br>
     <div>
       <button class="button-add-row" mat-raised-button color="primary" (click)="addRow()" >
-        Add Question
+        Nowe pytanie
       </button>
     </div>
     <br>
@@ -21,14 +21,14 @@
           </ng-container>
           <div class="btn-edit" *ngSwitchCase="'isEdit'">
             <button mat-button (click)="element.isEdit = !element.isEdit">
-              Edit
+              Edytuj
             </button>
             <button
               mat-button
               class="button-remove"
               (click)="removeRow(element.id)"
             >
-              Delete
+              Usuń
             </button>
           </div>
           <span *ngSwitchDefault>
@@ -43,7 +43,7 @@
               (click)="editRow(element)"
               [disabled]="disableSubmit(element.id)"
             >
-              Done
+              Zakończ
             </button>
           </div>
           <mat-form-field class="form-input" *ngSwitchDefault>

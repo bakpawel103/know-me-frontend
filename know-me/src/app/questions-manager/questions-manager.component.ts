@@ -6,12 +6,12 @@ const COLUMNS_SCHEMA = [
   {
       key: "name",
       type: "String",
-      label: "Name"
+      label: "Nazwa"
   },
   {
       key: "description",
       type: "String",
-      label: "Description"
+      label: "Opis"
   },
   {
     key: "isEdit",
