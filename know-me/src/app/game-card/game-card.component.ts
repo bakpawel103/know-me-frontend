@@ -1,5 +1,13 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { QuestionService } from '../question.service';
+
+export interface Question {
+  id: number;
+  name: String;
+  description: String;
+  answered: boolean;
+}
 
 @Component({
   selector: 'app-game-card',
@@ -24,14 +32,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
     ])
   ]
 })
-export class GameCardComponent implements OnInit {
+export class GameCardComponent {
   @Input() data: any;
   
   @Output() cardClicked = new EventEmitter();
-
-  constructor() { }
-
-  ngOnInit(): void {
-    
-  }
 }

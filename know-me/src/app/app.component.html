@@ -4,7 +4,7 @@
 <div class="p-16">
   <br>
   <div class="grid p-16">
-    <app-game-card *ngFor="let item of cards; let idx=index" [data]="item" (cardClicked)="cardClicked(idx)"></app-game-card>
+    <app-game-card *ngFor="let item of questions; let idx=index" [data]="item" (cardClicked)="cardClicked(idx)"></app-game-card>
   </div>
 </div>
 

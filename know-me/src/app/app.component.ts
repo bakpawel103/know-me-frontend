@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CardData } from './types/CardData';
+import { Question } from './game-card/game-card.component';
+import { QuestionService } from './question.service';
 
 @Component({
   selector: 'app-root',
@@ -7,27 +8,28 @@ import { CardData } from './types/CardData';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  flippedCards: number = 0;
   title: string = "Know me The Game 😈";
 
-  cards: CardData[] = [];
+  questions: Question[] = [];
   
-  ngOnInit(): void {
+  constructor(private questionService : QuestionService) { }
 
+  ngOnInit(): void {
+    this.questionService.getQuestions().subscribe(response => {
+      console.log(response);
+    });
   }
 
   cardClicked(index: number): void {
-    const cardInfo = this.cards[index];
+    const quersion = this.questions[index];
 
-    if (cardInfo.answered === false)   {
-      cardInfo.answered = true;
-      this.flippedCards++;
-    } else if (cardInfo.answered === true) {
-      cardInfo.answered = false;
-      this.flippedCards--;
+    if (quersion.answered === false)   {
+      quersion.answered = true;
+    } else if (quersion.answered === true) {
+      quersion.answered = false;
     }
 
-    if(this.flippedCards == this.cards.length) {
+    if(this.questions.filter(x => x.answered).length == this.questions.length) {
       this.title = "💕 Kocham Cię! 💕";
     }
   }
