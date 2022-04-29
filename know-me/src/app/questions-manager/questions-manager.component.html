@@ -1,9 +1,11 @@
 <article class="table-header">
+    <br>
     <div>
-      <button class="button-add-row" mat-button (click)="addRow()">
-        Add Row
+      <button class="button-add-row" mat-raised-button color="primary" (click)="addRow()" >
+        Add Question
       </button>
     </div>
+    <br>
   </article>
   <table mat-table [dataSource]="dataSource">
     <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema">
@@ -29,9 +31,6 @@
               Delete
             </button>
           </div>
-          <span *ngSwitchCase="'date'">
-            {{ element[col.key] | date: 'mediumDate' }}
-          </span>
           <span *ngSwitchDefault>
             {{ element[col.key] }}
           </span>
