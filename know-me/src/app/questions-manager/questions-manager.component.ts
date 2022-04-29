@@ -54,7 +54,7 @@ export class QuestionsManagerComponent implements OnInit {
   addRow() {
     const newRow: Question = {
       id: 0,
-      name: '',
+      name: 'Pytanie ',
       description: '',
       answered: false,
       isEdit: true
