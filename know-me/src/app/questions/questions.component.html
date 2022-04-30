@@ -1,6 +1,7 @@
 <div class="p-16">
     <br>
-    <div class="grid p-16">
+    <div class="grid p-16" style="margin-top: 20px; margin-bottom: 20px;">
         <app-game-card *ngFor="let item of questions; let idx=index" [data]="item" (cardClicked)="cardClicked(idx)"></app-game-card>
     </div>
+    <br>
 </div>
