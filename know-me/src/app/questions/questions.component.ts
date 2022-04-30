@@ -42,7 +42,7 @@ export class QuestionsComponent implements OnInit {
       }, 400);
       
       if(this.questions.filter(question => question.answered).length == this.questions.length) {
-        this.snackBar.open('🥰 Brawo! Oprowiedzieliśmy na wszystkie pytania! 🥰', undefined, this.snackbarConfig);
+        this.snackBar.open('🥰 Brawo! Odpowiedzieliśmy na wszystkie pytania! 🥰', undefined, this.snackbarConfig);
       }
     })
   }
