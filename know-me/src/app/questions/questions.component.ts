@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Question } from '../game-card/game-card.component';
 import { QuestionService } from '../question.service';
 
@@ -8,11 +9,15 @@ import { QuestionService } from '../question.service';
   styleUrls: ['./questions.component.scss']
 })
 export class QuestionsComponent implements OnInit {
-  title: string = "Know me The Game 😈";
-
   questions: Question[] = [];
+
+  snackbarConfig: MatSnackBarConfig = {
+    duration: 2000,
+    verticalPosition: 'top',
+    horizontalPosition: 'end'
+  };
   
-  constructor(private questionService : QuestionService) { }
+  constructor(private questionService : QuestionService, private snackBar : MatSnackBar) { }
 
   ngOnInit(): void {
     this.questionService.getQuestions().subscribe(response => {
@@ -35,6 +40,10 @@ export class QuestionsComponent implements OnInit {
         this.questions[index] = response;
         this.questions = this.questions.sort((a, b) => a.id - b.id);
       }, 400);
+      
+      if(this.questions.filter(question => question.answered).length == this.questions.length) {
+        this.snackBar.open('🥰 Brawo! Oprowiedzieliśmy na wszystkie pytania! 🥰', undefined, this.snackbarConfig);
+      }
     })
   }
 }

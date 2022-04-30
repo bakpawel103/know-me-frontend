@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Question } from '../game-card/game-card.component';
 import { QuestionService } from '../question.service';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 const COLUMNS_SCHEMA = [
   {
@@ -31,7 +32,13 @@ export class QuestionsManagerComponent implements OnInit {
   columnsSchema: any = COLUMNS_SCHEMA;
   valid: any = {};
 
-  constructor(private questionService : QuestionService) { }
+  snackbarConfig: MatSnackBarConfig = {
+    duration: 2000,
+    verticalPosition: 'top',
+    horizontalPosition: 'end'
+  };
+
+  constructor(private questionService : QuestionService, private snackBar : MatSnackBar) { }
 
   ngOnInit(): void {
     this.questionService.getQuestions().subscribe(response => {
@@ -46,9 +53,15 @@ export class QuestionsManagerComponent implements OnInit {
         row.id = newQuest.id;
         row.isEdit = false;
         this.dataSource = this.dataSource.sort((a, b) => a.id - b.id);
+
+        this.snackBar.open('Utworzono pytanie', undefined, this.snackbarConfig);
       });
     } else {
-      this.questionService.updateQuestion(row.id, row).subscribe(() => (row.isEdit = false));
+      this.questionService.updateQuestion(row.id, row).subscribe(() => {
+        row.isEdit = false;
+        
+        this.snackBar.open('Edytowano pytanie z powodzeniem', undefined, this.snackbarConfig);
+      });
     }
   }
 
@@ -68,6 +81,8 @@ export class QuestionsManagerComponent implements OnInit {
       this.dataSource = this.dataSource.filter(
         (question: Question) => question.id !== id
       );
+
+      this.snackBar.open('Pytanie zostało usunięte', undefined, this.snackbarConfig);
     });
   }
 

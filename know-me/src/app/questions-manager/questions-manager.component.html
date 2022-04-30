@@ -20,14 +20,10 @@
             ></mat-checkbox>
           </ng-container>
           <div class="btn-edit" *ngSwitchCase="'isEdit'">
-            <button mat-button (click)="element.isEdit = !element.isEdit">
+            <button mat-stroked-button (click)="element.isEdit = !element.isEdit" style="margin-right:20px; color:#ffb300;">
               Edytuj
             </button>
-            <button
-              mat-button
-              class="button-remove"
-              (click)="removeRow(element.id)"
-            >
+            <button mat-stroked-button color="warn" class="button-remove" (click)="removeRow(element.id)">
               Usuń
             </button>
           </div>
@@ -38,11 +34,7 @@
         <div [ngSwitch]="col.type" *ngIf="element.isEdit">
           <div *ngSwitchCase="'isSelected'"></div>
           <div class="btn-edit" *ngSwitchCase="'isEdit'">
-            <button
-              mat-button
-              (click)="editRow(element)"
-              [disabled]="disableSubmit(element.id)"
-            >
+            <button mat-stroked-button style="color:#61d800;" (click)="editRow(element)" [disabled]="disableSubmit(element.id)">
               Zakończ
             </button>
           </div>
