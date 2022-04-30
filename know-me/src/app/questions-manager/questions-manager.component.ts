@@ -45,6 +45,7 @@ export class QuestionsManagerComponent implements OnInit {
       this.questionService.createQuestion(row).subscribe((newQuest: Question) => {
         row.id = newQuest.id;
         row.isEdit = false;
+        this.dataSource = this.dataSource.sort((a, b) => a.id - b.id);
       });
     } else {
       this.questionService.updateQuestion(row.id, row).subscribe(() => (row.isEdit = false));
