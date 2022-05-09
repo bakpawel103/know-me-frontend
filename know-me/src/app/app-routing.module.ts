@@ -2,8 +2,18 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { QuestionsManagerComponent } from './questions-manager/questions-manager.component';
 import { QuestionsComponent } from './questions/questions.component';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 const routes: Routes = [
+  {
+    path: 'sign-up',
+    component: SignUpComponent
+  },
+  {
+    path: 'sign-in',
+    component: SignInComponent
+  },
   {
     path: 'questions',
     component: QuestionsComponent
@@ -14,12 +24,12 @@ const routes: Routes = [
   },
   {
       path: '',
-      redirectTo: '/questions',
+      redirectTo: '/sign-in',
       pathMatch: 'full'
   },
   {
       path: '**',
-      redirectTo: '/questions',
+      redirectTo: '/sign-in',
       pathMatch: 'full'
   }
 ];

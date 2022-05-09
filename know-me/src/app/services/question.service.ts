@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Question } from './game-card/game-card.component';
+import { Question } from '../game-card/game-card.component';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,23 +11,23 @@ export class QuestionService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getQuestions() {
+  public getQuestions(): Observable<any> {
     return this.httpClient.get(`${this.BASE_SERVER}questions`);
   }
   
-  public getQuestionById(id: number) {
+  public getQuestionById(id: number): Observable<any> {
     return this.httpClient.get(`${this.BASE_SERVER}questions/${id}`);
   }
   
-  public createQuestion(question: Question) {
+  public createQuestion(question: Question): Observable<any> {
     return this.httpClient.post<Question>(`${this.BASE_SERVER}questions`, question);
   }
   
-  public updateQuestion(id: number, question: Question) {
+  public updateQuestion(id: number, question: Question): Observable<any> {
     return this.httpClient.put<Question>(`${this.BASE_SERVER}questions/${id}`, question);
   }
   
-  public deleteQuestion(id: number) {
+  public deleteQuestion(id: number): Observable<any> {
     return this.httpClient.delete(`${this.BASE_SERVER}questions/${id}`);
   }
 }

@@ -3,8 +3,11 @@
     <h1><a [routerLink]="'/questions'" style="color: white;text-decoration: none;">😍 Poznajmy się 😍</a></h1>
     <span class="menu-spacer"></span>
     <div>
-      <a mat-button [routerLink]="'/questions'">Pytania</a>
-      <a mat-button [routerLink]="'/manager'">Menadżer pytań</a>
+      <a mat-button *ngIf="user" [routerLink]="'/questions'">Pytania</a>
+      <a mat-button *ngIf="user" [routerLink]="'/manager'">Menadżer pytań</a>
+      <a mat-button *ngIf="!user" [routerLink]="'/sign-in'">Zaloguj się</a>
+      <a mat-button *ngIf="!user" [routerLink]="'/sign-up'">Zarejestruj się</a>
+      <a mat-button *ngIf="user" (click)="logout()">Wyloguj się</a>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>

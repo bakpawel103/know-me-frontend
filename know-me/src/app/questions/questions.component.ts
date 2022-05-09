@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Question } from '../game-card/game-card.component';
-import { QuestionService } from '../question.service';
+import { QuestionService } from '../services/question.service';
 
 @Component({
   selector: 'app-questions',
