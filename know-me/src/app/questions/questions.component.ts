@@ -8,7 +8,7 @@ import { TokenStorageService } from '../services/token-storage.service';
 @Component({
   selector: 'app-questions',
   templateUrl: './questions.component.html',
-  styleUrls: ['./questions.component.scss']
+  styleUrls: ['./questions.component.scss'],
 })
 export class QuestionsComponent implements OnInit {
   questions: Question[] = [];
@@ -16,10 +16,15 @@ export class QuestionsComponent implements OnInit {
   snackbarConfig: MatSnackBarConfig = {
     duration: 2000,
     verticalPosition: 'top',
-    horizontalPosition: 'end'
+    horizontalPosition: 'end',
   };
-  
-  constructor(private questionService : QuestionService, private snackBar : MatSnackBar, private tokenStorage: TokenStorageService, private router: Router) { }
+
+  constructor(
+    private questionService: QuestionService,
+    private snackBar: MatSnackBar,
+    private tokenStorage: TokenStorageService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     if (!this.tokenStorage.getToken()) {
@@ -27,7 +32,7 @@ export class QuestionsComponent implements OnInit {
       return;
     }
 
-    this.questionService.getQuestions().subscribe(response => {
+    this.questionService.getQuestions().subscribe((response) => {
       this.questions = response as Question[];
       this.questions = this.questions.sort((a, b) => a.id - b.id);
     });
@@ -36,21 +41,30 @@ export class QuestionsComponent implements OnInit {
   cardClicked(index: number): void {
     const question = this.questions[index];
 
-    if (question.answered === false)   {
+    if (question.answered === false) {
       question.answered = true;
     } else if (question.answered === true) {
       question.answered = false;
     }
 
-    this.questionService.updateQuestion(question.id, question).subscribe(response => {
-      setTimeout(() => {
-        this.questions[index] = response;
-        this.questions = this.questions.sort((a, b) => a.id - b.id);
-      }, 400);
-      
-      if(this.questions.filter(question => question.answered).length == this.questions.length) {
-        this.snackBar.open('🥰 Brawo! Odpowiedzieliśmy na wszystkie pytania! 🥰', undefined, this.snackbarConfig);
-      }
-    })
+    this.questionService
+      .updateQuestion(question.id, question)
+      .subscribe((response) => {
+        setTimeout(() => {
+          this.questions[index] = response;
+          this.questions = this.questions.sort((a, b) => a.id - b.id);
+        }, 400);
+
+        if (
+          this.questions.filter((question) => question.answered).length ==
+          this.questions.length
+        ) {
+          this.snackBar.open(
+            '🥰 Brawo! Odpowiedzieliśmy na wszystkie pytania! 🥰',
+            undefined,
+            this.snackbarConfig
+          );
+        }
+      });
   }
 }

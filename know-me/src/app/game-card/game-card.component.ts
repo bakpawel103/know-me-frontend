@@ -1,4 +1,10 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 export interface Question {
@@ -14,26 +20,26 @@ export interface Question {
   templateUrl: './game-card.component.html',
   styleUrls: ['./game-card.component.scss'],
   animations: [
-    trigger("cardFlip", [
+    trigger('cardFlip', [
       state(
-        "false",
+        'false',
         style({
-          transform: "none"
+          transform: 'none',
         })
       ),
       state(
-        "true",
+        'true',
         style({
-          transform: "rotateY(180deg)"
+          transform: 'rotateY(180deg)',
         })
       ),
-      transition("false => true", [animate("400ms")]),
-      transition("true => false", [animate("400ms")]),
-    ])
-  ]
+      transition('false => true', [animate('400ms')]),
+      transition('true => false', [animate('400ms')]),
+    ]),
+  ],
 })
 export class GameCardComponent {
   @Input() data: any;
-  
+
   @Output() cardClicked = new EventEmitter();
 }

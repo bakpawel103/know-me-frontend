@@ -8,34 +8,34 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 const routes: Routes = [
   {
     path: 'sign-up',
-    component: SignUpComponent
+    component: SignUpComponent,
   },
   {
     path: 'sign-in',
-    component: SignInComponent
+    component: SignInComponent,
   },
   {
     path: 'questions',
-    component: QuestionsComponent
+    component: QuestionsComponent,
   },
   {
     path: 'manager',
-    component: QuestionsManagerComponent
+    component: QuestionsManagerComponent,
   },
   {
-      path: '',
-      redirectTo: '/sign-in',
-      pathMatch: 'full'
+    path: '',
+    redirectTo: '/sign-in',
+    pathMatch: 'full',
   },
   {
-      path: '**',
-      redirectTo: '/sign-in',
-      pathMatch: 'full'
-  }
+    path: '**',
+    redirectTo: '/sign-in',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

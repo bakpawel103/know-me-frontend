@@ -5,11 +5,10 @@ import { Observable } from 'rxjs';
 const API_URL = 'https://know-me-backend.herokuapp.com/api/test/';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   public getPublicContent(): Observable<any> {
     return this.http.get(API_URL + 'all', { responseType: 'text' });

@@ -1,9 +1,16 @@
 <div class="card" (click)="cardClicked.emit()" [@cardFlip]="data.answered">
-    <div class="face back" style="background-image: url('/assets/images/card-background.png'); background-repeat: no-repeat; background-size: 300px 200px;">
-        <h1 class="text-shadow" [innerHTML]="data.name"></h1>
-    </div>
-    <div class="face front">
-        <h4 class="text-shadow" [innerHTML]="data.name"></h4>
-        <h3 [innerHTML]="data.description"></h3>
-    </div>
+  <div
+    class="face back"
+    style="
+      background-image: url('/assets/images/card-background.png');
+      background-repeat: no-repeat;
+      background-size: 300px 200px;
+    "
+  >
+    <h1 class="text-shadow" [innerHTML]="data.name"></h1>
+  </div>
+  <div class="face front">
+    <h4 class="text-shadow" [innerHTML]="data.name"></h4>
+    <h3 [innerHTML]="data.description"></h3>
+  </div>
 </div>

@@ -5,11 +5,10 @@ const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TokenStorageService {
-  
-  constructor() { }
+  constructor() {}
 
   signOut(): void {
     window.sessionStorage.clear();
@@ -18,7 +17,7 @@ export class TokenStorageService {
   public getBearerHeader(): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.getToken()}`
+      Authorization: `Bearer ${this.getToken()}`,
     });
   }
 
@@ -42,7 +41,7 @@ export class TokenStorageService {
     if (user) {
       return JSON.parse(user);
     }
-    
+
     return {};
   }
 }

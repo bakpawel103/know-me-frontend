@@ -1,6 +1,10 @@
 <mat-toolbar color="primary" class="text-center">
   <mat-toolbar-row>
-    <h1><a [routerLink]="'/questions'" style="color: white;text-decoration: none;">😍 Poznajmy się 😍</a></h1>
+    <h1>
+      <a [routerLink]="'/questions'" style="color: white; text-decoration: none"
+        >😍 Poznajmy się 😍</a
+      >
+    </h1>
     <span class="menu-spacer"></span>
     <div>
       <a mat-button *ngIf="user" [routerLink]="'/questions'">Pytania</a>

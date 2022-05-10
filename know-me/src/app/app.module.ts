@@ -26,7 +26,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
     QuestionsManagerComponent,
     QuestionsComponent,
     SignUpComponent,
-    SignInComponent
+    SignInComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,9 +40,9 @@ import { SignInComponent } from './sign-in/sign-in.component';
     MatInputModule,
     MatTableModule,
     MatCheckboxModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
