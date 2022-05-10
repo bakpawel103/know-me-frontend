@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Question } from '../game-card/game-card.component';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { QuestionService } from '../services/question.service';
+import { TokenStorageService } from '../services/token-storage.service';
+import { Router } from '@angular/router';
 
 const COLUMNS_SCHEMA = [
   {
@@ -38,9 +40,14 @@ export class QuestionsManagerComponent implements OnInit {
     horizontalPosition: 'end'
   };
 
-  constructor(private questionService : QuestionService, private snackBar : MatSnackBar) { }
+  constructor(private questionService : QuestionService, private snackBar : MatSnackBar, private tokenStorage: TokenStorageService, private router: Router) { }
 
   ngOnInit(): void {
+    if (!this.tokenStorage.getToken()) {
+      this.router.navigate(['/signin']);
+      return;
+    }
+
     this.questionService.getQuestions().subscribe(response => {
       this.dataSource = response as Question[];
       this.dataSource = this.dataSource.sort((a, b) => a.id - b.id);

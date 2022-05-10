@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 const TOKEN_KEY = 'auth-token';
@@ -12,6 +13,13 @@ export class TokenStorageService {
 
   signOut(): void {
     window.sessionStorage.clear();
+  }
+
+  public getBearerHeader(): HttpHeaders {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.getToken()}`
+    });
   }
 
   public saveToken(token: string): void {
