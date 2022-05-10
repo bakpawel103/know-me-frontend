@@ -73,4 +73,8 @@ export class QuestionsComponent implements OnInit {
         }
       });
   }
+
+  getAnsweredQuestions(): Question[] {
+    return this.questions.filter((question) => question.answered);
+  }
 }
