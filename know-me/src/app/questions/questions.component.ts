@@ -19,6 +19,12 @@ export class QuestionsComponent implements OnInit {
     horizontalPosition: 'end',
   };
 
+  gridColumns = 6;
+
+  toggleGridColumns() {
+    this.gridColumns = this.gridColumns === 6 ? 5 : 6;
+  }
+
   constructor(
     private questionService: QuestionService,
     private snackBar: MatSnackBar,

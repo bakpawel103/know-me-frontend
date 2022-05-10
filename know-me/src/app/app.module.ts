@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
 import { QuestionsManagerComponent } from './questions-manager/questions-manager.component';
 import { QuestionsComponent } from './questions/questions.component';
@@ -41,6 +42,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
     MatTableModule,
     MatCheckboxModule,
     MatSnackBarModule,
+    FlexLayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

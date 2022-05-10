@@ -1,13 +1,11 @@
-.grid {
-    display: grid;
-    grid-template-columns: repeat(5, 300px);
-    gap: 16px;
-
-    justify-content: center;
+mat-toolbar {
+    justify-content: space-between;
 }
 
-@media (max-width: 600px) {
-    .grid {
-        grid-template-columns: repeat(2, 300px);
-    }
+.content {
+    padding: 16px;
+}
+
+.content>mat-card {
+    margin-bottom: 16px;
 }
