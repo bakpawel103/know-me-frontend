@@ -99,6 +99,7 @@ export class DecksComponent implements OnInit {
 @Component({
   selector: 'add-deck-dialog',
   templateUrl: './add-deck-dialog.html',
+  styleUrls: ['./decks.component.scss'],
 })
 export class AddDeckDialog {
   secretId: String = '';
@@ -121,6 +122,7 @@ export class AddDeckDialog {
 @Component({
   selector: 'create-deck-dialog',
   templateUrl: './create-deck-dialog.html',
+  styleUrls: ['./decks.component.scss'],
 })
 export class CreateDeckDialog {
   name: String = '';
