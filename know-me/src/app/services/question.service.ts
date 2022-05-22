@@ -35,6 +35,17 @@ export class QuestionService {
     );
   }
 
+  public createQuestionInDeck(
+    deckSecretId: String,
+    question: Question
+  ): Observable<any> {
+    return this.httpClient.post<Question>(
+      `${this.BASE_SERVER}questions/decks/${deckSecretId}`,
+      question,
+      { headers: this.tokenService.getBearerHeader() }
+    );
+  }
+
   public updateQuestion(id: number, question: Question): Observable<any> {
     return this.httpClient.put<Question>(
       `${this.BASE_SERVER}questions/${id}`,

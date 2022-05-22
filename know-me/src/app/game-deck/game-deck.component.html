@@ -1,0 +1,12 @@
+<div class="card" (click)="cardClicked.emit()">
+  <div
+    class="face back"
+    style="
+      background-image: url('/assets/images/deck-background.jpg');
+      background-repeat: no-repeat;
+      background-size: 300px 200px;
+    "
+  >
+    <h2 class="text-shadow" [innerHTML]="data.name"></h2>
+  </div>
+</div>

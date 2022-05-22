@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Question } from '../game-card/game-card.component';
+import { Deck } from '../game-deck/game-deck.component';
+import { DeckService } from '../services/deck.service';
 import { QuestionService } from '../services/question.service';
 import { TokenStorageService } from '../services/token-storage.service';
 
@@ -11,7 +13,7 @@ import { TokenStorageService } from '../services/token-storage.service';
   styleUrls: ['./questions.component.scss'],
 })
 export class QuestionsComponent implements OnInit {
-  questions: Question[] = [];
+  deck: Deck = {} as Deck;
 
   snackbarConfig: MatSnackBarConfig = {
     duration: 2000,
@@ -27,25 +29,30 @@ export class QuestionsComponent implements OnInit {
 
   constructor(
     private questionService: QuestionService,
+    private deckService: DeckService,
     private snackBar: MatSnackBar,
     private tokenStorage: TokenStorageService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     if (!this.tokenStorage.getToken()) {
-      this.router.navigate(['/signin']);
+      this.router.navigate(['/sign-in']);
       return;
     }
 
-    this.questionService.getQuestions().subscribe((response) => {
-      this.questions = response as Question[];
-      this.questions = this.questions.sort((a, b) => a.id - b.id);
-    });
+    let deckId = this.route.snapshot.queryParams['secret_id'];
+    if (deckId != undefined && deckId != null) {
+      this.deckService.getDeckBySecretId(deckId).subscribe((response) => {
+        this.deck = response as Deck;
+        this.deck.questions = this.deck.questions.sort((a, b) => a.id - b.id);
+      });
+    }
   }
 
   cardClicked(index: number): void {
-    const question = this.questions[index];
+    const question = this.deck.questions[index];
 
     if (question.answered === false) {
       question.answered = true;
@@ -57,13 +64,13 @@ export class QuestionsComponent implements OnInit {
       .updateQuestion(question.id, question)
       .subscribe((response) => {
         setTimeout(() => {
-          this.questions[index] = response;
-          this.questions = this.questions.sort((a, b) => a.id - b.id);
+          this.deck.questions[index] = response;
+          this.deck.questions = this.deck.questions.sort((a, b) => a.id - b.id);
         }, 400);
 
         if (
-          this.questions.filter((question) => question.answered).length ==
-          this.questions.length
+          this.deck.questions.filter((question) => question.answered).length ==
+          this.deck.questions.length
         ) {
           this.snackBar.open(
             '🥰 Brawo! Odpowiedzieliśmy na wszystkie pytania! 🥰',
@@ -75,6 +82,10 @@ export class QuestionsComponent implements OnInit {
   }
 
   getAnsweredQuestions(): Question[] {
-    return this.questions.filter((question) => question.answered);
+    if (this.deck == undefined || this.deck.questions == undefined) {
+      return [];
+    }
+
+    return this.deck.questions.filter((question) => question.answered);
   }
 }

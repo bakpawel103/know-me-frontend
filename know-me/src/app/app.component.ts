@@ -5,13 +5,16 @@ import { TokenStorageService } from './services/token-storage.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
   user: any = null;
   isLoggedIn = false;
 
-  constructor(private tokenStorageService: TokenStorageService, private router: Router) { }
+  constructor(
+    private tokenStorageService: TokenStorageService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
@@ -19,7 +22,7 @@ export class AppComponent implements OnInit {
       this.user = this.tokenStorageService.getUser();
     }
   }
-  
+
   logout(): void {
     this.tokenStorageService.signOut();
     window.location.reload();

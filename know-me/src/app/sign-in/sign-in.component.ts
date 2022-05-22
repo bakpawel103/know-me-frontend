@@ -28,7 +28,7 @@ export class SignInComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.user = this.tokenStorage.getUser();
-      this.router.navigate(['/questions']);
+      this.router.navigate(['/decks']);
     }
   }
 
@@ -42,7 +42,7 @@ export class SignInComponent implements OnInit {
         this.isLoggedIn = true;
         this.user = this.tokenStorage.getUser();
         this.reloadPage();
-        this.router.navigate(['/questions']);
+        this.router.navigate(['/decks']);
       },
       (err) => {
         this.errorMessage = err.error.message;

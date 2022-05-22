@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Informacje o talii:</h2>
+<div style="margin-bottom: 15px">
+  <label for="secretId">Sekretne id talii:</label>
+  <input id="secretId" (change)="change($event)" />
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="onCancelClick()">
+    Anuluj
+  </button>
+  <button mat-raised-button color="primary" cdkFocusInitial (click)="addDeck()">
+    Dodaj
+  </button>
+</div>
+
+<link href="./decks.component.scss" rel="stylesheet" />

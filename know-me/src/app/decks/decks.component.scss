@@ -1,0 +1,28 @@
+mat-toolbar {
+    justify-content: space-between;
+}
+
+.content {
+    padding: 16px;
+}
+
+.content>mat-card {
+    margin-bottom: 16px;
+}
+
+.questions-status-container {
+    text-align: center;
+}
+
+.add-button-container {
+    text-align: center;
+}
+
+.button-add-row {
+    float: none;
+    margin: 5px;
+}
+
+button {
+    font-family: "Roboto Mono" !important;
+}

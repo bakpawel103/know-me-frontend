@@ -4,6 +4,8 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { QuestionService } from '../services/question.service';
 import { TokenStorageService } from '../services/token-storage.service';
 import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
+import { Deck } from '../game-deck/game-deck.component';
 
 const COLUMNS_SCHEMA = [
   {
@@ -29,7 +31,7 @@ const COLUMNS_SCHEMA = [
   styleUrls: ['./questions-manager.component.scss'],
 })
 export class QuestionsManagerComponent implements OnInit {
-  dataSource: Question[] = [];
+  decks: Deck[] = [];
   displayedColumns: string[] = COLUMNS_SCHEMA.map((col) => col.key);
   columnsSchema: any = COLUMNS_SCHEMA;
   valid: any = {};
@@ -42,6 +44,7 @@ export class QuestionsManagerComponent implements OnInit {
 
   constructor(
     private questionService: QuestionService,
+    private userService: UserService,
     private snackBar: MatSnackBar,
     private tokenStorage: TokenStorageService,
     private router: Router
@@ -49,30 +52,42 @@ export class QuestionsManagerComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.tokenStorage.getToken()) {
-      this.router.navigate(['/signin']);
+      this.router.navigate(['/sign-in']);
       return;
     }
 
-    this.questionService.getQuestions().subscribe((response) => {
-      this.dataSource = response as Question[];
-      this.dataSource = this.dataSource.sort((a, b) => a.id - b.id);
-    });
+    this.userService
+      .getDecks(this.tokenStorage.getUser().id)
+      .subscribe((response) => {
+        this.decks = response as Deck[];
+        this.decks.forEach((deck) => {
+          deck.questions = deck.questions.sort((a, b) => a.id - b.id);
+        });
+      });
   }
 
-  editRow(row: Question) {
+  editRow(deckSecretId: String, row: Question) {
     if (row.id === 0) {
       this.questionService
-        .createQuestion(row)
+        .createQuestionInDeck(deckSecretId, row)
         .subscribe((newQuest: Question) => {
           row.id = newQuest.id;
           row.isEdit = false;
-          this.dataSource = this.dataSource.sort((a, b) => a.id - b.id);
 
           this.snackBar.open(
             'Utworzono pytanie',
             undefined,
             this.snackbarConfig
           );
+
+          this.userService
+            .getDecks(this.tokenStorage.getUser().id)
+            .subscribe((response) => {
+              this.decks = response as Deck[];
+              this.decks.forEach((deck) => {
+                deck.questions = deck.questions.sort((a, b) => a.id - b.id);
+              });
+            });
         });
     } else {
       this.questionService.updateQuestion(row.id, row).subscribe(() => {
@@ -83,11 +98,20 @@ export class QuestionsManagerComponent implements OnInit {
           undefined,
           this.snackbarConfig
         );
+
+        this.userService
+          .getDecks(this.tokenStorage.getUser().id)
+          .subscribe((response) => {
+            this.decks = response as Deck[];
+            this.decks.forEach((deck) => {
+              deck.questions = deck.questions.sort((a, b) => a.id - b.id);
+            });
+          });
       });
     }
   }
 
-  addRow() {
+  addRow(secretId: String) {
     const newRow: Question = {
       id: 0,
       name: 'Pytanie ',
@@ -95,12 +119,24 @@ export class QuestionsManagerComponent implements OnInit {
       answered: false,
       isEdit: true,
     };
-    this.dataSource = [newRow, ...this.dataSource];
+    var foundDeck = this.decks.find((deck) => deck.secretId == secretId);
+
+    if (foundDeck == undefined || foundDeck == null) {
+      return;
+    }
+
+    foundDeck.questions = [newRow, ...foundDeck.questions];
   }
 
-  removeRow(id: number) {
+  removeRow(secretId: String, id: number) {
     this.questionService.deleteQuestion(id).subscribe(() => {
-      this.dataSource = this.dataSource.filter(
+      var foundDeck = this.decks.find((deck) => deck.secretId == secretId);
+
+      if (foundDeck == undefined || foundDeck == null) {
+        return;
+      }
+
+      foundDeck.questions = foundDeck.questions.filter(
         (question: Question) => question.id !== id
       );
 
@@ -124,5 +160,13 @@ export class QuestionsManagerComponent implements OnInit {
       return Object.values(this.valid[id]).some((item) => item === false);
     }
     return false;
+  }
+
+  removeDeck(secretId: String) {
+    this.userService
+      .deleteUserDeck(this.tokenStorage.getUser().id, secretId)
+      .subscribe(() => {
+        window.location.reload();
+      });
   }
 }

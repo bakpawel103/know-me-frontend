@@ -1,75 +1,87 @@
-<article class="table-header">
-  <br />
+<div *ngFor="let deck of decks">
+  <div class="add-button-container">
+    <h3>{{ deck.name }}</h3>
+  </div>
+  <div class="add-button-container">
+    <h5>Sekretne id talii: {{ deck.secretId }}</h5>
+  </div>
   <div class="add-button-container">
     <button
       class="button-add-row"
-      mat-raised-button
-      color="primary"
-      (click)="addRow()"
+      mat-flat-button
+      style="color: #61d800"
+      (click)="addRow(deck.secretId)"
     >
       Nowe pytanie
     </button>
+    <button
+      class="button-remove button-add-row"
+      mat-flat-button
+      color="warn"
+      (click)="removeDeck(deck.secretId)"
+    >
+      Usuń talię
+    </button>
   </div>
-  <br />
-</article>
-<table mat-table [dataSource]="dataSource">
-  <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema">
-    <th mat-header-cell *matHeaderCellDef>
-      {{ col.label }}
-    </th>
-    <td mat-cell *matCellDef="let element">
-      <div [ngSwitch]="col.type" *ngIf="!element.isEdit">
-        <ng-container *ngSwitchCase="'isSelected'">
-          <mat-checkbox
-            (change)="element.isSelected = $event.checked"
-          ></mat-checkbox>
-        </ng-container>
-        <div class="btn-edit" *ngSwitchCase="'isEdit'">
-          <button
-            mat-stroked-button
-            (click)="element.isEdit = !element.isEdit"
-            style="margin-right: 20px; color: #ffb300"
-          >
-            Edytuj
-          </button>
-          <button
-            mat-stroked-button
-            color="warn"
-            class="button-remove"
-            (click)="removeRow(element.id)"
-          >
-            Usuń
-          </button>
+  <table mat-table [dataSource]="deck.questions">
+    <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ col.label }}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <div [ngSwitch]="col.type" *ngIf="!element.isEdit">
+          <ng-container *ngSwitchCase="'isSelected'">
+            <mat-checkbox
+              (change)="element.isSelected = $event.checked"
+            ></mat-checkbox>
+          </ng-container>
+          <div class="btn-edit" *ngSwitchCase="'isEdit'">
+            <button
+              mat-stroked-button
+              (click)="element.isEdit = !element.isEdit"
+              style="margin-right: 20px; color: #ffb300"
+            >
+              Edytuj
+            </button>
+            <button
+              mat-stroked-button
+              color="warn"
+              class="button-remove"
+              (click)="removeRow(deck.secretId, element.id)"
+            >
+              Usuń
+            </button>
+          </div>
+          <span *ngSwitchDefault>
+            {{ element[col.key] }}
+          </span>
         </div>
-        <span *ngSwitchDefault>
-          {{ element[col.key] }}
-        </span>
-      </div>
-      <div [ngSwitch]="col.type" *ngIf="element.isEdit">
-        <div *ngSwitchCase="'isSelected'"></div>
-        <div class="btn-edit" *ngSwitchCase="'isEdit'">
-          <button
-            mat-stroked-button
-            style="color: #61d800"
-            (click)="editRow(element)"
-            [disabled]="disableSubmit(element.id)"
-          >
-            Zakończ
-          </button>
+        <div [ngSwitch]="col.type" *ngIf="element.isEdit">
+          <div *ngSwitchCase="'isSelected'"></div>
+          <div class="btn-edit" *ngSwitchCase="'isEdit'">
+            <button
+              mat-stroked-button
+              style="color: #61d800"
+              (click)="editRow(deck.secretId, element)"
+              [disabled]="disableSubmit(element.id)"
+            >
+              Zakończ
+            </button>
+          </div>
+          <mat-form-field class="form-input" *ngSwitchDefault>
+            <input
+              matInput
+              [required]="col.required"
+              [pattern]="col.pattern"
+              [type]="col.type"
+              [(ngModel)]="element[col.key]"
+              (change)="inputHandler($event, element.id, col.key)"
+            />
+          </mat-form-field>
         </div>
-        <mat-form-field class="form-input" *ngSwitchDefault>
-          <input
-            matInput
-            [required]="col.required"
-            [pattern]="col.pattern"
-            [type]="col.type"
-            [(ngModel)]="element[col.key]"
-            (change)="inputHandler($event, element.id, col.key)"
-          />
-        </mat-form-field>
-      </div>
-    </td>
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-</table>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>

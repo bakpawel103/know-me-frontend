@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DecksComponent } from './decks/decks.component';
 import { QuestionsManagerComponent } from './questions-manager/questions-manager.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { SignInComponent } from './sign-in/sign-in.component';
@@ -13,6 +14,10 @@ const routes: Routes = [
   {
     path: 'sign-in',
     component: SignInComponent,
+  },
+  {
+    path: 'decks',
+    component: DecksComponent,
   },
   {
     path: 'questions',

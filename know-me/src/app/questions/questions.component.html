@@ -2,7 +2,7 @@
   <div class="questions-status-container">
     <p>
       Odkryte pytania: {{ getAnsweredQuestions().length }}/{{
-        questions.length
+        deck.questions != undefined ? deck.questions.length : 0
       }}
     </p>
   </div>
@@ -13,10 +13,10 @@
       [fxFlex]="100 / gridColumns + '%'"
       fxFlex.xs="100%"
       fxFlex.sm="33%"
-      *ngFor="let item of questions; let idx = index"
+      *ngFor="let card of deck.questions; let idx = index"
     >
       <app-game-card
-        [data]="item"
+        [data]="card"
         (cardClicked)="cardClicked(idx)"
         class="mat-elevation-z4"
       ></app-game-card>

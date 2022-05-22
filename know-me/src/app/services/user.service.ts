@@ -1,28 +1,35 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { TokenStorageService } from './token-storage.service';
 
-const API_URL = 'https://know-me-backend.herokuapp.com/api/test/';
+const API_URL = 'https://know-me-backend.herokuapp.com/api/v1/';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private tokenService: TokenStorageService
+  ) {}
 
-  public getPublicContent(): Observable<any> {
-    return this.http.get(API_URL + 'all', { responseType: 'text' });
+  public getDecks(id: number): Observable<any> {
+    return this.http.get(`${API_URL}users/${id}/decks`, {
+      headers: this.tokenService.getBearerHeader(),
+    });
   }
 
-  public getUserBoard(): Observable<any> {
-    return this.http.get(API_URL + 'user', { responseType: 'text' });
+  public addUserDeck(userId: number, secretId: String): Observable<any> {
+    return this.http.put(`${API_URL}users/${userId}/decks`, secretId, {
+      headers: this.tokenService.getBearerHeader(),
+    });
   }
 
-  public getModeratorBoard(): Observable<any> {
-    return this.http.get(API_URL + 'mod', { responseType: 'text' });
-  }
-
-  public getAdminBoard(): Observable<any> {
-    return this.http.get(API_URL + 'admin', { responseType: 'text' });
+  public deleteUserDeck(userId: number, secretId: String): Observable<any> {
+    return this.http.delete(`${API_URL}users/${userId}/decks`, {
+      headers: this.tokenService.getBearerHeader(),
+      body: secretId,
+    });
   }
 }

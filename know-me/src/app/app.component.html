@@ -1,14 +1,14 @@
 <mat-toolbar color="primary" class="text-center">
   <mat-toolbar-row>
     <h1>
-      <a [routerLink]="'/questions'" style="color: white; text-decoration: none"
+      <a [routerLink]="'/decks'" style="color: white; text-decoration: none"
         >😍 Poznajmy się 😍</a
       >
     </h1>
     <span class="menu-spacer"></span>
     <div>
-      <a mat-button *ngIf="user" [routerLink]="'/questions'">Pytania</a>
-      <a mat-button *ngIf="user" [routerLink]="'/manager'">Menadżer pytań</a>
+      <a mat-button *ngIf="user" [routerLink]="'/decks'">Talie</a>
+      <a mat-button *ngIf="user" [routerLink]="'/manager'">Menadżer talii</a>
       <a mat-button *ngIf="!user" [routerLink]="'/sign-in'">Zaloguj się</a>
       <a mat-button *ngIf="!user" [routerLink]="'/sign-up'">Zarejestruj się</a>
       <a mat-button *ngIf="user" (click)="logout()">Wyloguj się</a>
